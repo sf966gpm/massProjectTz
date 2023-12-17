@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Request;
+use App\Models\RequestModel;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Database\Seeder;
@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->addRoles();
         $this->addTestUsers();
         User::factory(10)->create();
-        Request::factory(10)->create();
+        RequestModel::factory(1000)->create();
     }
 
     private function addRoles()
@@ -33,6 +33,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@mail.ru',
             'name' => 'Админ Админ Админ',
             'user_roles_id' => 1
+        ]);
+        User::factory()->create([
+            'email' => 'user@mail.ru',
+            'name' => 'Пользователь Пользователь Пользователь',
+            'user_roles_id' => 2
         ]);
     }
 }

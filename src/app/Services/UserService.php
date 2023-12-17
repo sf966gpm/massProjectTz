@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -46,7 +47,7 @@ class UserService
     private function userData(User $user): array
     {
         return [
-            'user' => $user,
+            'user' => UserResource::make($user->load('userRole')),
             'token' => $user->createToken('API Token для ' . $user->email)->plainTextToken,
             'token_type' => 'Bearer'
         ];

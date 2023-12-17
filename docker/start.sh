@@ -6,6 +6,9 @@ artisan="${app_dir}/artisan"
 
 # На всякий случай, иногда не успевает встать postgres
 sleep 5
-#$php "${artisan}" migrate --seed
-$php "${artisan}" key:generate
+if [ -z "${APP_KEY}" ]; then
+    $php "${artisan}" key:generate
+fi
+
+$php "${artisan}" migrate --seed
 $php "${artisan}" serve --host=0.0.0.0 --port=8000
