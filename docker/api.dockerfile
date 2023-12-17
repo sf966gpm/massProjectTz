@@ -24,7 +24,8 @@ COPY ./docker/start.sh /tmp/start.sh
 
 
 FROM build as php
-RUN ln -s /tmp/start.sh /usr/bin/start.sh
+RUN ln -s /tmp/start.sh /usr/bin/start.sh \
+    && chmod +x /tmp/start.sh
 EXPOSE 8000
 ENTRYPOINT ["start.sh"]
 CMD ["/app"]

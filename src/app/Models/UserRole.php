@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserRole extends Model
 {
@@ -13,4 +14,9 @@ class UserRole extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function user(): HasMany
+    {
+        return $this->hasMany(User::class, 'user_roles_id', 'id');
+    }
 }
