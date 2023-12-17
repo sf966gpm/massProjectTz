@@ -23,4 +23,8 @@ Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+
+    Route::apiResource('/requests', \App\Http\Controllers\RequestController::class)->only(
+        'index', 'show'
+    );
 });

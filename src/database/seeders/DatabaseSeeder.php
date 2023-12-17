@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Requests;
+use App\Models\Request;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Database\Seeder;
@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->addRoles();
         $this->addTestUsers();
         User::factory(10)->create();
-        Requests::factory(10)->create();
+        Request::factory(10)->create();
     }
 
     private function addRoles()

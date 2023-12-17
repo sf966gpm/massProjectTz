@@ -53,6 +53,6 @@ class User extends Authenticatable
 
     public function reguest(): HasMany
     {
-        return $this->hasMany(Requests::class, 'users_id', 'id');
+        return $this->hasMany(Request::class, 'users_id', 'id');
     }
 }
