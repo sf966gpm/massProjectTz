@@ -112,6 +112,9 @@ cd /project-folder/massProjectTz
 cp .env.example .env
 # windows
 copy .env.example .env
+# Отправка почты была реализована с помощью mailtrap.io
+# Для работы с ней, нужен включенный vpn и Аккаунт
+# В .env добавляем MAIL_USERNAME и MAIL_PASSWORD
 
 # Сборка образа
 docker compose build
