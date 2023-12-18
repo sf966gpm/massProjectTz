@@ -97,3 +97,40 @@
 
 </details>
 
+### Использование
+
+Перед git clone, желательно поставить ***git config --global core.autocrlf false***.
+Либо потом после git clone для файла /docker/star.sh убедиться что он Unix(LF)
+
+#### Docker
+
+```bash
+cd /project-folder/massProjectTz
+
+# Одно из двух делаем
+# linux
+cp .env.example .env
+# windows
+copy .env.example .env
+
+# Сборка образа
+docker compose build
+# Запуск контейнеров
+docker compose up -d
+```
+
+1. Ждём пока соберутся образы.
+2. Запускаем контейнеры.
+3. Убедились что они все поднялись (если не встали, разбираемся почему).
+4. Ждем пока отработает стартовый скрипт в контейнере api.
+
+#### Postman
+
+[Ссылка на открытый Workspace postman, с готовыми запросами.](https://www.postman.com/sf966gpm/workspace/massprojecttz)
+
+1. Форкаем postman, заходим в папку auth.
+2. Выбираем request Login (Есть для админа и для просто пользователя).
+3. Отправляем (send).
+4. Из ответа, получаем token(Тип указан в ответе).
+5. Записываем его в Variables коллекции, называем его token_admin (token_user для обычного пользователя)
+
