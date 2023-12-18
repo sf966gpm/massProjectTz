@@ -11,26 +11,19 @@ RUN apt-get update \
     && docker-php-ext-install pdo pdo_pgsql pgsql \
     bcmath
 
+COPY ./src /app
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+COPY ./.env /app
 COPY ./docker/start.sh /tmp/start.sh
-#COPY ./ /app
-#
-#RUN composer install --no-interaction --prefer-dist --optimize-autoloader \
-#    && php artisan cache:clear \
-#    && php artisan route:cache \
-#    && php artisan key:generate \
-#    && php artisan config:cache
-
-
-
-FROM build as php
 RUN ln -s /tmp/start.sh /usr/bin/start.sh \
-    && chmod +x /tmp/start.sh
+    && chmod +x /tmp/start.sh \
+    && php artisan optimize:clear \
+    && php artisan cache:clear \
+    && php artisan optimize
+
+
 EXPOSE 8000
 ENTRYPOINT ["start.sh"]
 CMD ["/app"]
-
-#FROM build as cron
-#RUN apt-get install -y cron \
-#    && crontab /app/docker/cron
-#CMD ["cron", "&&","tail","-f","/var/log/cron.log","2>&1"]

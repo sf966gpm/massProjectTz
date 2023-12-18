@@ -8,30 +8,16 @@ services:
     build:
       context: .
       dockerfile: ./docker/api.dockerfile
-      target: php
+      target: build
     working_dir: /app
     depends_on:
       - postgres
     environment:
       - APP_KEY=${APP_KEY}
-    volumes:
-      - ./src:/app
-    #      - ./.env:/app/.env
     networks:
       - back
     ports:
       - "7474:8000"
-
-
-  #  schedule:
-  #    build:
-  #      context: .
-  #      dockerfile: /docker/dockerfile
-  #      target: cron
-  #    depends_on:
-  #      - postgres
-  #    networks:
-  #      - back
 
   postgres:
     image: postgres:alpine
