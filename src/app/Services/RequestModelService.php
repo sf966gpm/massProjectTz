@@ -30,9 +30,17 @@ class RequestModelService
         return $requestModel;
     }
 
+    /**
+     * Отправляем письмо, пользователю
+     * TODO: Должно быть поставлено в очередь, для асинхронного исполнения.
+     * @param RequestModel $request
+     * @return void
+     */
     public function sendEmail(RequestModel $request): void
     {
-        Mail::to($request->user->email)->send(new ResolvedRequest($request->comment));
+        $request = $request->with('user')->first();
+        $resolvedRequest = new ResolvedRequest($request);
+        Mail::to($request->user->email)->send($resolvedRequest);
     }
 
     public function requestModelWithFilters(): LengthAwarePaginator

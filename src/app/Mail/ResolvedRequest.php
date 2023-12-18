@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\RequestModel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,7 +17,7 @@ class ResolvedRequest extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public string $comment, public string $name)
+    public function __construct(public RequestModel $requestModel)
     {
         //
     }
@@ -28,7 +29,7 @@ class ResolvedRequest extends Mailable
     {
         return new Envelope(
             from: 'laravel@example.com',
-            subject: 'Resolved Request',
+            subject: 'Решенный запрос',
         );
     }
 

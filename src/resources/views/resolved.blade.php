@@ -8,8 +8,9 @@
     <title>Письмо</title>
 </head>
 <body>
-<p>Добрый день {{ $name }}</p>
-<p>{{ $comment }}</p>
-<p>Спасибо, </p>
+<p>Добрый день, {{ $requestModel->user->name }}</p>
+<p>Ваш запрос: {{ $requestModel->message }}</p>
+<p>Наш ответ: {{ $requestModel->comment }}</p>
+<p>Спасибо вам, что пользуетесь нашим сервисом!</p>
 </body>
 </html>
