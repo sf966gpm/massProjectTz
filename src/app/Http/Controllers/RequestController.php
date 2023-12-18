@@ -6,30 +6,30 @@ use App\Http\Requests\StoreRequestModelRequest;
 use App\Http\Requests\UpdateRequestModelRequest;
 use App\Http\Resources\RequestCollection;
 use App\Http\Resources\RequestResource;
-use App\Mail\ResolvedRequest;
 use App\Models\RequestModel;
 use App\Services\RequestModelService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class RequestController extends Controller
 {
-    public function index()
+    public function index(RequestModelService $service): RequestCollection
     {
         $this->authorize('viewAny', Auth::user());
-        return RequestCollection::make(RequestModel::with('user')
-            ->paginate());
+        return RequestCollection::make($service->requestModelWithFilters());
     }
 
-    public function show(RequestModel $request)
+    public function show(RequestModel $request): RequestResource
     {
         $this->authorize('viewAny', Auth::user());
         return RequestResource::make($request->load('user'));
     }
 
-    public function update(RequestModel $request, UpdateRequestModelRequest $requestData, RequestModelService $service)
+    public function update(RequestModel              $request,
+                           UpdateRequestModelRequest $requestData,
+                           RequestModelService       $service
+    ): RequestResource
     {
         $user = Auth::user();
 
@@ -41,7 +41,7 @@ class RequestController extends Controller
 
     }
 
-    public function store(StoreRequestModelRequest $requestData, RequestModelService $service)
+    public function store(StoreRequestModelRequest $requestData, RequestModelService $service): JsonResponse
     {
         $validated = $requestData->validated();
         $requestModel = $service->createRequestModel($validated);
